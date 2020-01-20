@@ -326,6 +326,7 @@ class Faults(object):
                 self.df.loc[series_fault, 'isFault'] = self.df.loc[series_fault, 'isFault'] ^ True
             else:
                 self.df.loc[series_fault, 'isFault'] = True
+
             self.df['isFinite'] = np.bitwise_and(self.df['isFault'], self.df['isFinite'])
 
             # Update default fault relations
@@ -364,7 +365,7 @@ class Faults(object):
             if toggle is True:
                 self.df.loc[series_finite, 'isFinite'] = self.df.loc[series_finite, 'isFinite'] ^ True
             else:
-                self.df.loc[series_finite, 'isFinite'] = self.df.loc[series_finite, 'isFinite']
+                self.df.loc[series_finite, 'isFinite'] = True
 
         return self
 
@@ -645,13 +646,16 @@ class Colors:
         self.surfaces = surfaces
 
     def generate_colordict(self, out = False):
+        import seaborn as sns
         """generate colordict that assigns black to faults and random colors to surfaces"""
-        gp_defcols = ['#015482','#9f0052','#ffbe00','#728f02','#443988','#ff3f20','#325916','#5DA629']
-        test = len(gp_defcols) >= len(self.surfaces.df)
+        gp_defcols = ['#015482','#9f0052','#ffbe00','#728f02','#443988','#ff3f20','#5DA629']
 
-        if test is False:
-            from matplotlib._color_data import XKCD_COLORS as morecolors
-            gp_defcols += list(morecolors.values())
+        # This can be the most horrible code of the whole package
+        for i in [0.6,1,0.8,0.5, 0.9]:
+            s = sns.color_palette(desat=i).as_hex()
+            gp_defcols += s
+            if len(gp_defcols) >= len(self.surfaces.df):
+                break
 
         colordict = dict(zip(list(self.surfaces.df['surface']), gp_defcols[:len(self.surfaces.df)]))
         self.colordict_default = colordict
@@ -772,8 +776,9 @@ class Surfaces(object):
 
     def __init__(self, series: Series, surface_names=None, values_array=None, properties_names=None):
 
-        self._columns = ['surface', 'series', 'order_surfaces', 'isBasement', 'color', 'vertices', 'edges', 'id']
-        self._columns_vis_drop = ['vertices', 'edges',]
+        self._columns = ['surface', 'series', 'order_surfaces', 'isBasement', 'isFault', 'color', 'vertices', 'edges', 'id']
+
+        self._columns_vis_drop = ['vertices', 'edges', 'isBasement', 'isFault']
         self._n_properties = len(self._columns) -1
         self.series = series
         self.colors = Colors(self)
@@ -794,7 +799,9 @@ class Surfaces(object):
             self.set_surfaces_values(values_array=values_array, properties_names=properties_names)
 
     def __repr__(self):
-        return self.df.to_string()
+        c_ = self.df.columns[~(self.df.columns.isin(self._columns_vis_drop))]
+
+        return self.df[c_].to_string()
 
     def _repr_html_(self):
         c_ = self.df.columns[~(self.df.columns.isin(self._columns_vis_drop))]
@@ -811,13 +818,17 @@ class Surfaces(object):
              :class:`Surfaces`:
 
         """
-
+        self.map_faults()
         if id_list is None:
-            id_list = self.df.reset_index().index + 1
+            # This id is necessary for the faults
+            id_unique = self.df.reset_index().index + 1
 
-        self.df['id'] = id_list
+        self.df['id'] = id_unique
 
         return self
+
+    def map_faults(self):
+        self.df['isFault'] = self.df['series'].map(self.series.faults.df['isFault'])
 
     @staticmethod
     def background_color(value):
@@ -2472,7 +2483,7 @@ class Structure(object):
         # Extracting lengths
         # ==================
         # Array containing the size of every surface. SurfacePoints
-        lssp = self.surface_points.df.groupby('id')['order_series'].count().values
+        lssp = self.surface_points.df.groupby('surface')['order_series'].count().values
         lssp_nonzero = lssp[np.nonzero(lssp)]
 
         self.df.at['values', 'len surfaces surface_points'] = lssp_nonzero
@@ -2697,11 +2708,16 @@ class KrigingParameters(object):
         assert np.isin(attribute, self.df.columns).all(), 'Valid properties are: ' + np.array2string(self.df.columns)
 
         if attribute == 'drift equations':
+            value = np.asarray(value)
+            print(value)
+
             if type(value) is str:
                 value = np.fromstring(value[1:-1], sep=u_grade_sep, dtype=int)
             try:
                 assert value.shape[0] is self.structure.df.loc['values', 'len series surface_points'].shape[0]
+                print(value, attribute)
                 self.df.at['values', attribute] = value
+                print(self.df)
 
             except AssertionError:
                 print('u_grade length must be the same as the number of series')
@@ -2875,4 +2891,6 @@ class AdditionalData(object):
         Update fields dependent on input data sucha as structure and universal kriging grade
         """
         self.structure_data.update_structure_from_input()
-        self.kriging_data.set_u_grade()
+        if len(self.kriging_data.df.loc['values', 'drift equations']) <\
+                self.structure_data.df.loc['values', 'number series']:
+            self.kriging_data.set_u_grade()
