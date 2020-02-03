@@ -766,17 +766,38 @@ class PlotSolution(PlotData2D):
         j = np.where(self.model.grid.sections.names == section_name)[0][0]
         startend = list(self.model.grid.sections.section_dict.values())[j]
         p1, p2 = startend[0], startend[1]
-        xy = self.model.grid.sections.calculate_line_coordinates_2points(p1,
-                                                                         p2,
-                                                                         n)
+        xy = self.model.grid.sections.calculate_line_coordinates_2points(p1,p2,n)
+
+        #### ugly but for Merle to get more decimal digits after comma
+        nx = p2[0] - p1[0]
+        numsx = 0
+        print(nx)
+        if int(nx) == 0 and nx != 0:
+            i = 1
+            while int(nx) != 1:
+                print(nx)
+                nx = (p2[0] - p1[0]) * i
+                i *= 10
+                numsx += 1
+        ny = p1[1] - p2[1]
+        numsy = 0
+        print(ny)
+        if int(ny) == 0:
+            i = 1
+            while int(ny) != 1 and ny != 0:
+                ny = (p1[1] - p2[1]) * i
+                i *= 10
+                numsy += 1
+        ###############################################################
+
         if len(np.unique(xy[:, 0])) == 1:
-            labels = xy[:, 1].astype(int)
+            labels = np.round(xy[:, 1], numsy)
             axname = 'Y'
         elif len(np.unique(xy[:, 1])) == 1:
-            labels = xy[:, 0].astype(int)
+            labels = np.round(xy[:, 0], numsx)
             axname = 'X'
         else:
-            labels = [str(xy[:, 0].astype(int)[i]) + ',\n' + str(xy[:, 1].astype(int)[i]) for i in
+            labels = [str(np.round(xy[:, 0], numsx)[i]) + ',\n' + str(np.round(xy[:, 1], numsy)[i]) for i in
                       range(xy[:, 0].shape[0])]
             axname = 'X,Y'
         return labels, axname
