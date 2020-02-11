@@ -1,6 +1,7 @@
 from gempy.plot import visualization_2d_pro as vv
 import numpy as np
 import matplotlib.patches as patches
+import matplotlib.pyplot as plt
 
 def _extract_boundaries(self, axes, section_name='topography'):
     """
@@ -109,6 +110,7 @@ def get_polygon_dictionary(geo_model, section_name):
 
 
 def plot_pathdict(pathdict, cdict, extent, ax=None):
+    surflist = list(cdict.keys())
     if ax == None:
         fig, ax = plt.subplots()
     for formation in surflist:
