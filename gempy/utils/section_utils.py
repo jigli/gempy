@@ -1,6 +1,6 @@
 from gempy.plot import visualization_2d_pro as vv
 import numpy as np
-
+import matplotlib.patches as patches
 
 def _extract_boundaries(self, axes, section_name='topography'):
     """
