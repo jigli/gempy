@@ -99,6 +99,10 @@ def get_polygon_dictionary(geo_model, section_name):
         for col in contour.collections:
             all_paths.append(col.get_paths())
 
+    for p in all_paths:
+        if p == []:
+            all_paths.remove(p)
+
     surflist = []
     for color in colors:
         surflist.append(geo_model.surfaces.df[geo_model.surfaces.df['color'] == color]['surface'].values[0])
@@ -115,7 +119,7 @@ def plot_pathdict(pathdict, cdict, extent, ax=None):
         fig, ax = plt.subplots()
     for formation in surflist:
         for path in pathdict.get(formation):
-            patch = patches.PathPatch(path, fill=False, lw=2, edgecolor=cdict.get(formation, None))
+            patch = patches.PathPatch(path, fill=False, lw=1, edgecolor=cdict.get(formation, None))
             ax.add_patch(patch)
     ax.set_xlim(extent[:2])
     ax.set_ylim(extent[2:])
