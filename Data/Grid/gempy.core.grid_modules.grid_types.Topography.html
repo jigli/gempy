@@ -1,0 +1,241 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>gempy.core.grid_modules.grid_types.Topography &#8212; GemPy 2.1.1 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery-dataframe.css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="gempy.core.grid_modules.grid_types.Sections" href="gempy.core.grid_modules.grid_types.Sections.html" />
+    <link rel="prev" title="gempy.core.grid_modules.grid_types.CustomGrid" href="gempy.core.grid_modules.grid_types.CustomGrid.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="../../index.html">
+    <img class="logo" src="../../_static/./logos/gempy.png" alt="Logo"/>
+    
+    <h1 class="logo logo-name">GemPy</h1>
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=cgre-aachen&repo=gempy&type=star&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+    
+
+<p>
+<a class="badge" href="https://travis-ci.org/cgre-aachen/gempy">
+    <img
+        alt="https://secure.travis-ci.org/cgre-aachen/gempy.svg?branch=master"
+        src="https://secure.travis-ci.org/cgre-aachen/gempy.svg?branch=master"
+    />
+</a>
+</p>
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">GemPy</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../code.html">Code</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../code.html#gempy-api">GemPy API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../code.html#model">Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../code.html#plot">Plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../code.html#data">Data</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../code.html#grids">Grids</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../code.html#geometric-data">Geometric Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../code.html#interpolator">Interpolator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../code.html#solution">Solution</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Getting Started</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../../code.html">Code</a><ul>
+      <li>Previous: <a href="gempy.core.grid_modules.grid_types.CustomGrid.html" title="previous chapter">gempy.core.grid_modules.grid_types.CustomGrid</a></li>
+      <li>Next: <a href="gempy.core.grid_modules.grid_types.Sections.html" title="next chapter">gempy.core.grid_modules.grid_types.Sections</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="gempy-core-grid-modules-grid-types-topography">
+<h1>gempy.core.grid_modules.grid_types.Topography<a class="headerlink" href="#gempy-core-grid-modules-grid-types-topography" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="gempy.core.grid_modules.grid_types.Topography">
+<em class="property">class </em><code class="sig-prename descclassname">gempy.core.grid_modules.grid_types.</code><code class="sig-name descname">Topography</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">regular_grid</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gempy/core/grid_modules/grid_types.html#Topography"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gempy.core.grid_modules.grid_types.Topography" title="Permalink to this definition">¶</a></dt>
+<dd><p>Object to include topography in the model.</p>
+<p class="rubric">Examples using Topography</p>
+<div class="sphx-glr-clear"></div><p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gempy.core.grid_modules.grid_types.Topography.__init__" title="gempy.core.grid_modules.grid_types.Topography.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(regular_grid)</p></td>
+<td><p>Initialize self.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#gempy.core.grid_modules.grid_types.Topography.interpolate_zvals_at_xy" title="gempy.core.grid_modules.grid_types.Topography.interpolate_zvals_at_xy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">interpolate_zvals_at_xy</span></code></a>(xy[, method])</p></td>
+<td><p>Interpolates DEM values on a defined section</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gempy.core.grid_modules.grid_types.Topography.load_from_gdal" title="gempy.core.grid_modules.grid_types.Topography.load_from_gdal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_from_gdal</span></code></a>(filepath)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#gempy.core.grid_modules.grid_types.Topography.load_from_saved" title="gempy.core.grid_modules.grid_types.Topography.load_from_saved"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_from_saved</span></code></a>(filepath)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gempy.core.grid_modules.grid_types.Topography.load_random_hills" title="gempy.core.grid_modules.grid_types.Topography.load_random_hills"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_random_hills</span></code></a>(**kwargs)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#gempy.core.grid_modules.grid_types.Topography.save" title="gempy.core.grid_modules.grid_types.Topography.save"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save</span></code></a>(filepath)</p></td>
+<td><p>Save the topography file in a numpy array which can be loaded later, to avoid the gdal process.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gempy.core.grid_modules.grid_types.Topography.show" title="gempy.core.grid_modules.grid_types.Topography.show"><code class="xref py py-obj docutils literal notranslate"><span class="pre">show</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt id="gempy.core.grid_modules.grid_types.Topography.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">regular_grid</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gempy/core/grid_modules/grid_types.html#Topography.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gempy.core.grid_modules.grid_types.Topography.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="gempy.core.grid_modules.grid_types.Topography.load_from_gdal">
+<code class="sig-name descname">load_from_gdal</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filepath</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gempy/core/grid_modules/grid_types.html#Topography.load_from_gdal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gempy.core.grid_modules.grid_types.Topography.load_from_gdal" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="gempy.core.grid_modules.grid_types.Topography.load_random_hills">
+<code class="sig-name descname">load_random_hills</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gempy/core/grid_modules/grid_types.html#Topography.load_random_hills"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gempy.core.grid_modules.grid_types.Topography.load_random_hills" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="gempy.core.grid_modules.grid_types.Topography.load_from_saved">
+<code class="sig-name descname">load_from_saved</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filepath</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gempy/core/grid_modules/grid_types.html#Topography.load_from_saved"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gempy.core.grid_modules.grid_types.Topography.load_from_saved" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="gempy.core.grid_modules.grid_types.Topography.show">
+<code class="sig-name descname">show</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gempy/core/grid_modules/grid_types.html#Topography.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gempy.core.grid_modules.grid_types.Topography.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="gempy.core.grid_modules.grid_types.Topography.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filepath</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gempy/core/grid_modules/grid_types.html#Topography.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gempy.core.grid_modules.grid_types.Topography.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the topography file in a numpy array which can be loaded later, to avoid the gdal process.
+:param filepath: path where the array should be stored.
+:type filepath: str</p>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="gempy.core.grid_modules.grid_types.Topography.interpolate_zvals_at_xy">
+<code class="sig-name descname">interpolate_zvals_at_xy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">xy</span></em>, <em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">'interp2d'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gempy/core/grid_modules/grid_types.html#Topography.interpolate_zvals_at_xy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gempy.core.grid_modules.grid_types.Topography.interpolate_zvals_at_xy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interpolates DEM values on a defined section</p>
+<p>:param : param xy: x (EW) and y (NS) coordinates of the profile
+:param : param method: interpolation method, ‘interp2d’ for cubic scipy.interpolate.interp2d</p>
+<blockquote>
+<div><p>‘spline’ for scipy.interpolate.RectBivariateSpline</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>return: z values, i.e. topography along the profile</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2017-2020, CGRE-Aachen Team.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.0.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../_sources/Data/Grid/gempy.core.grid_modules.grid_types.Topography.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
